@@ -3,7 +3,7 @@
         {
             "type": "shell",
             "label": "C/C++: cl.exe build active file",
-            "command": "shell.bat && build.bat",
+            "command": "build.bat",
             "group": {
                 "kind": "build",
                 "isDefault": true

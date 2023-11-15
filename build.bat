@@ -1,13 +1,19 @@
 @echo off
 
-rem -FAs assembly output
-set CompilerFlags=-nologo -MT -Gm- -GR- -EHa- -Od -Oi -WX -W4 -wd4127 -wd4201 -wd4281 -wd4100 -wd4189 -wd4505 -wd4706 -DDEBUG=1 -FC -Z7
-set LinkerFlags=-incremental:no 
+if not defined DevEnvDir (
+	call "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvarsall.bat" x64
+)
 
-mkdir build
-pushd build
+set THIS_FILE_DIR=%~dp0
+set BUILD_DIR=%THIS_FILE_DIR%local_build
+set SRC_FILES=%THIS_FILE_DIR%src\main\main.c
 
-REM 64-bit build
-del *.pdb > NUL 2> NUL
-cl %CompilerFlags% ..\src\main.c -Fmmain.map /link -opt:ref user32.lib winmm.lib %LinkerFlags%
+mkdir %BUILD_DIR%
+pushd %BUILD_DIR%
+
+set OUTPUT_DEBUG_SYMBOLS=/Z7
+set COMPILER_FLAGS=%OUTPUT_DEBUG_SYMBOLS%
+
+cl %COMPILER_FLAGS% %SRC_FILES%
+
 popd 

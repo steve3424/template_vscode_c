@@ -1,5 +1,6 @@
 @echo off
 
-set BATCH_DIR=%~dp0
+set THIS_FILE_DIR=%~dp0
+set BUILD_DIR=%THIS_FILE_DIR%local_build
 
-call %BATCH_DIR%build\\main.exe
+call %BUILD_DIR%\main.exe
